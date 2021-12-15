@@ -20,6 +20,8 @@ const App = () => {
       console.log("We have the ethereum object", ethereum);
     }
 
+    /*Documentation for eth_requestaccounts found here: https://docs.metamask.io/guide/rpc-api.html#permissions*/
+
     const accounts = await ethereum.request({ method: 'eth_accounts' });
 
     if (accounts.length !== 0) {
@@ -31,9 +33,6 @@ const App = () => {
     }
   }
 
-  /*
-  * Implement your connectWallet method here
-  */
   const connectWallet = async () => {
     try {
       const { ethereum } = window;
@@ -43,14 +42,8 @@ const App = () => {
         return;
       }
 
-      /*
-      * Fancy method to request access to account.
-      */
       const accounts = await ethereum.request({ method: "eth_requestAccounts" });
 
-      /*
-      * Boom! This should print out public address once we authorize Metamask.
-      */
       console.log("Connected", accounts[0]);
       setCurrentAccount(accounts[0]); 
     } catch (error) {
@@ -69,9 +62,6 @@ const App = () => {
     checkIfWalletIsConnected();
   }, [])
 
-  /*
-  * Added a conditional render! We don't want to show Connect to Wallet if we're already conencted :).
-  */
   return (
     <div className="App">
       <div className="container">
